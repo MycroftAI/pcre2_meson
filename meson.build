@@ -151,12 +151,14 @@ if not meson.is_cross_build() # wine wrappers are not bat-friendly, this would n
 
   if host_machine.system() == 'windows'
     runtest = find_program('RunTest.bat')
+    #  test('RunTest', runtest,
+    #    env : ['srcdir=@0@'.format(meson.current_source_dir())],
+    #    workdir: meson.current_build_dir())
   else
     runtest = find_program('RunTest')
+    test('RunTest', runtest,
+      env : ['srcdir=@0@'.format(meson.current_source_dir())],
+      workdir: meson.current_build_dir())
   endif
-
-  test('RunTest', runtest,
-    env : ['srcdir=@0@'.format(meson.current_source_dir())],
-    workdir: meson.current_build_dir())
 endif
 
